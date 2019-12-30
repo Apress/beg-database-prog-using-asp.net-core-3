@@ -1,0 +1,66 @@
+@page "/"
+@page "/Employees/List"
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager UriHelper
+@inject IEmployeeRepository EmpRepository
+@attribute [Authorize(Roles = "Manager")]
+@*@attribute [Authorize(Policy = "MustBeManager")]*@
+
+
+
+@code {
+
+    List<Employee> Employees { get; set; }
+
+    string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(UriHelper.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).Count > 0)
+        {
+            Message = QueryHelpers.ParseQuery(uri.Query).First().Value;
+        }
+
+        Employees = EmpRepository.SelectAll();
+    }
+}
+
+
+<h2>List of Employees</h2>
+
+<h3 class="message">@Message</h3>
+
+<a href='/employees/insert' class="linkbutton">Insert</a>
+
+<br />
+<br />
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Title</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    @foreach (var item in Employees)
+    {
+        <tr>
+            <td>@item.EmployeeID</td>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.Title</td>
+            <td>
+                <a href='/employees/update/@item.EmployeeID' class="linkbutton">Update</a>
+            </td>
+            <td>
+                <a href='/employees/delete/@item.EmployeeID' class="linkbutton">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+

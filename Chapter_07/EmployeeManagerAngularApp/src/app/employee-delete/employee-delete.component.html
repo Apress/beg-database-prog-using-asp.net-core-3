@@ -1,0 +1,60 @@
+<h2>Delete Existing Employee</h2>
+
+<h3 class="message">{{message}}</h3>
+
+
+<form [formGroup]="deleteForm" (ngSubmit)="delete_click()" novalidate>
+
+  <h3 class="message">
+    Warning : You are about to delete an employee record.
+  </h3>
+
+  <input type="hidden" formControlName="employeeID" />
+
+  <table border="0" cellpadding="10">
+    <tr>
+      <td class="right">Employee ID :</td>
+      <td>{{employee.employeeID}}</td>
+    </tr>
+    <tr>
+      <td class="right">First Name :</td>
+      <td>{{employee.firstName}}</td>
+    </tr>
+    <tr>
+      <td class="right">Last Name :</td>
+      <td>{{employee.lastName}}</td>
+    </tr>
+    <tr>
+      <td class="right">Title :</td>
+      <td>{{employee.title}}</td>
+    </tr>
+    <tr>
+      <td class="right">Birth Date :</td>
+      <td>{{employee.birthDate | date:'dd MMMM yyyy'}}</td>
+    </tr>
+    <tr>
+      <td class="right">Hire Date :</td>
+      <td>{{employee.hireDate | date:'dd MMMM yyyy'}}</td>
+    </tr>
+    <tr>
+      <td class="right">Country :</td>
+      <td>{{employee.country}}</td>
+    </tr>
+    <tr>
+      <td class="right">Notes :</td>
+      <td>{{employee.notes}}</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="submit">Delete</button>
+      </td>
+    </tr>
+  </table>
+</form>
+<br /><br />
+<a href="#" (click)="cancel_click()">Back to Employee Listing</a>
+
+<hr />
+<app-signout></app-signout>
+
+

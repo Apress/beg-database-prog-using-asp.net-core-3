@@ -1,0 +1,81 @@
+﻿
+<script>
+    $(document).ready(function () {
+
+        if (!sessionStorage.hasOwnProperty("token")) {
+            window.location.href = "/EmployeeManager/SignIn";
+        }
+
+        var options = {};
+        options.url = "/api/employees";
+        options.type = "GET";
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+            $("h3.message").html("Wait...");
+        };
+        options.dataType = "json";
+        options.success = function (data) {
+            data.forEach(function (element) {
+                var row = "<tr>";
+                row += "<td>";
+                row += element.employeeID;
+                row += "</td>";
+                row += "<td>";
+                row += element.firstName;
+                row += "</td>";
+                row += "<td>";
+                row += element.lastName;
+                row += "</td>";
+                row += "<td>";
+                row += element.title;
+                row += "</td>";
+                row += "<td>";
+                row += "<a href='/EmployeeManager/Update/" + element.employeeID + "' class='linkbutton'>Update</a>";
+                row += "</td>";
+                row += "<td>";
+                row += "<a href='/EmployeeManager/Delete/" + element.employeeID + "' class='linkbutton'>Delete</a>";
+                row += "</td>";
+                row += "</tr>";
+
+                $("#employeeList").append(row);
+            });
+            $("h3.message").html("");
+
+            if (sessionStorage.hasOwnProperty("message")) {
+                $("h3.message").html(sessionStorage.getItem("message"));
+                sessionStorage.removeItem("message");
+            }
+
+        };
+
+        options.error = function (xhr) {
+            if (xhr.status == 401) {
+                window.location.href = "/EmployeeManager/SignIn";
+            }
+            $("h3.message").html("Error while calling the API");
+        }
+
+        $.ajax(options);
+
+    });
+</script>
+
+<h2>List of Employees</h2>
+
+<h3 class="message"></h3>
+
+<a asp-controller="EmployeeManager" 
+   asp-action="Insert" 
+   class="linkbutton">Insert</a>
+
+<br /><br />
+
+<table id="employeeList" border="1">
+    <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Title</th>
+        <th colspan="2">Actions</th>
+    </tr>
+</table>

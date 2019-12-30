@@ -1,0 +1,90 @@
+﻿@model Employee
+
+<h2>Delete Existing Employee</h2>
+
+<h3 class="message">
+    Warning : You are about to delete an employee record.
+</h3>
+
+<form asp-controller="EmployeeManager" asp-action="Delete" method="post">
+
+    <input type="hidden" asp-for="EmployeeID" />
+
+    <table border="0">
+        <tr>
+            <td class="right">
+                <label asp-for="EmployeeID"></label> :
+            </td>
+            <td>
+                @Model.EmployeeID
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="FirstName"></label> :
+            </td>
+            <td>
+                @Model.FirstName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="LastName"></label> :
+            </td>
+            <td>
+                @Model.LastName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Title"></label> :
+            </td>
+            <td>
+                @Model.Title
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="BirthDate"></label> :
+            </td>
+            <td>
+                @Model.BirthDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="HireDate"></label> :
+            </td>
+            <td>
+                @Model.HireDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Country"></label> :
+            </td>
+            <td>
+                @Model.Country
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Notes"></label> :
+            </td>
+            <td>
+                @Model.Notes
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Delete</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br /><br />
+
+<a asp-controller="EmployeeManager" asp-action="List">Back to Employee Listing</a>
+
+

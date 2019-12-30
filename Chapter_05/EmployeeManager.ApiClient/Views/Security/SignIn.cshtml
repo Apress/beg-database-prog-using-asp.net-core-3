@@ -1,0 +1,31 @@
+﻿@model SignIn
+
+
+<h2>Sign In</h2>
+
+@using (Html.BeginForm("SignIn", "Security", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.UserName) :</td>
+            <td>@Html.TextBoxFor(m => m.UserName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Password) :</td>
+            <td>@Html.PasswordFor(m => m.Password)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.RememberMe) :</td>
+            <td>@Html.CheckBoxFor(m => m.RememberMe)</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Sign In</button>
+            </td>
+        </tr>
+    </table>
+    @Html.ValidationSummary(null, new { @class = "message" })
+
+    <h3>@Html.ActionLink("Create New User Account", "Register", "Security")</h3>
+
+}

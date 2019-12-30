@@ -1,0 +1,121 @@
+﻿
+<script>
+    $(document).ready(function () {
+
+    $("#registerForm").validate({
+        rules: {
+            userName: {
+                required: true,
+                maxlength: 20
+            },
+            password: {
+                required: true,
+                maxlength: 20
+            },
+            confirmPassword: {
+                required: true,
+                maxlength: 20,
+                equalTo: "#password"
+            },
+            email: {
+                required: true,
+                maxlength: 100
+            },
+            fullName: {
+                required: true,
+                maxlength: 100
+            },
+            birthDate: {
+                required: true
+            }
+        },
+        messages: {
+            userName: "Invalid User Name",
+            password: "Invalid Password",
+            confirmPassword: "Invalid Password",
+            email: "Invalid Email",
+            fullName: "Invalid Full Name",
+            birthDate:"Invalid Birth Date"
+        },
+        errorClass: "message"
+    });
+
+    $("#create").click(function () {
+
+        if ($("#registerForm").valid()) {
+            var options = {};
+            options.url = "/api/security/register";
+            options.type = "POST";
+
+            var obj = {};
+            obj.userName = $("#userName").val();
+            obj.password = $("#password").val();
+            obj.confirmPassword = $("#confirmPassword").val();
+            obj.email = $("#email").val();
+            obj.fullName = $("#fullName").val();
+            obj.birthDate = $("#birthDate").val();
+
+            options.data = JSON.stringify(obj);
+            options.contentType = "application/json";
+            options.dataType = "text";
+
+            options.success = function (msg) {
+                $("h3.message").html(msg);
+                $("#userName").val("");
+                $("#password").val("");
+                $("#confirmPassword").val("");
+                $("#email").val("");
+                $("#fullName").val("");
+                $("#birthDate").val("");
+            };
+            options.error = function () {
+                $("h3.message").html("Error while calling API!");
+            };
+            $.ajax(options);
+        }
+    });
+});
+</script>
+
+<h2>Create New User Account</h2>
+
+<h3 class="message"></h3>
+
+<form id="registerForm">
+    <table>
+        <tr>
+            <td class="right"><label for="userName">User Name :</label></td>
+            <td class="left"><input type="text" id="userName" name="userName"/></td>
+        </tr>
+        <tr>
+            <td class="right"><label for="password">Password :</label></td>
+            <td class="left"><input type="password" id="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td class="right"><label for="confirmPassword">Confirm Password :</label></td>
+            <td class="left"><input type="password" id="confirmPassword" name="confirmPassword"/></td>
+        </tr>
+        <tr>
+            <td class="right"><label for="email">Email :</label></td>
+            <td class="left"><input type="text" id="email" name="email"/></td>
+        </tr>
+        <tr>
+            <td class="right"><label for="fullName">Full Name :</label></td>
+            <td><input type="text" id="fullName" name="fullName" /></td>
+        </tr>
+        <tr>
+            <td class="right"><label for="birthDate">Birth Date :</label></td>
+            <td class="left"><input type="date" id="birthDate" name="birthDate"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="create" type="button">Create</button>
+            </td>
+        </tr>
+    </table>
+
+    <h3>
+        <a asp-controller="EmployeeManager" asp-action="SignIn">Go To Sign-In Page</a>
+    </h3>
+
+</form>

@@ -1,0 +1,33 @@
+﻿@page
+@model SignInModel
+@{
+}
+
+
+
+<h2>Sign In</h2>
+<form method="post">
+    <table>
+        <tr>
+            <td><label asp-for="SignInData.UserName"></label></td>
+            <td><input type="text" asp-for="SignInData.UserName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="SignInData.Password"></label></td>
+            <td><input type="password" asp-for="SignInData.Password" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="SignInData.RememberMe"></label></td>
+            <td><input type="checkbox" asp-for="SignInData.RememberMe" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Sign In</button>
+            </td>
+        </tr>
+    </table>
+    <div asp-validation-summary="All" class="message"></div>
+
+    <h3><a asp-page="/Security/Register">Create New User Account</a></h3>
+
+</form>

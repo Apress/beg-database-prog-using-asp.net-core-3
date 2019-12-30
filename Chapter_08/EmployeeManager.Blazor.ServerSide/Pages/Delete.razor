@@ -1,0 +1,110 @@
+﻿@page "/Employees/Delete/{EmployeeID:int}"
+@inject NavigationManager UriHelper
+@inject IEmployeeRepository EmpRepository
+@attribute [Authorize(Roles = "Manager")]
+
+
+
+@code {
+    [Parameter]
+    public int EmployeeID { get; set; }
+    Employee EmployeeModel { get; set; }
+    string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        EmployeeModel = EmpRepository.SelectByID(EmployeeID);
+    }
+
+    private void OnDeleteClick()
+    {
+        EmpRepository.Delete(EmployeeID);
+        Message = "Employee deleted successfully!";
+        UriHelper.NavigateTo($"/employees/list?Message={Message}");
+    }
+}
+
+<h2>Delete Existing Employee</h2>
+
+<h3 class="message">
+    Warning : You are about to delete an employee record.
+</h3>
+
+<form>
+    <table border="0">
+        <tr>
+            <td class="right">
+                <label>EmployeeID :</label>
+            </td>
+            <td>
+                @EmployeeModel.EmployeeID
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>First Name :</label>
+            </td>
+            <td>
+                @EmployeeModel.FirstName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>Last Name :</label>
+            </td>
+            <td>
+                @EmployeeModel.LastName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>Title :</label>
+            </td>
+            <td>
+                @EmployeeModel.Title
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>Birth Date :</label>
+            </td>
+            <td>
+                @EmployeeModel.BirthDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>Hire Date :</label>
+            </td>
+            <td>
+                @EmployeeModel.HireDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>Country :</label>
+            </td>
+            <td>
+                @EmployeeModel.Country
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label>Notes :</label>
+            </td>
+            <td>
+                @EmployeeModel.Notes
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="button" @onclick="OnDeleteClick">Delete</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br /><br />
+
+<a href="/employees/list">Back to Employee Listing</a>
+

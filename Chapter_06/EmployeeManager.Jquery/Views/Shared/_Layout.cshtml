@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee Manager</title>
+    <link href="~/Styles/site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+</head>
+<body>
+    <h1>
+        Employee Manager
+    </h1>
+    <hr />
+    <div>
+        @RenderBody()
+    </div>
+    <br />
+    <hr />
+
+    <script>
+        $(document).ready(function () {
+            if (sessionStorage.hasOwnProperty("userName")) {
+                $("#userName").html("You are signed in as " + sessionStorage.getItem("userName"));
+            }
+            else {
+                $("#signoutForm").hide();
+            }
+
+            $("#signout").click(function () {
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("userName");
+                window.location.href = "/EmployeeManager/SignIn";
+            });
+        });
+    </script>
+
+    <h2 id="userName"></h2>
+    <form id="signoutForm">
+        <button id="signout" type="button">Sign Out</button>
+    </form>
+</body>
+</html>

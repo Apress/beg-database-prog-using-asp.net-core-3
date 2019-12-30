@@ -1,0 +1,193 @@
+﻿
+
+<script>
+
+    $(document).ready(function () {
+
+        if (!sessionStorage.hasOwnProperty("token")) {
+            window.location.href = "/EmployeeManager/SignIn";
+        }
+
+        $("#insertForm").validate({
+            rules: {
+                firstName: {
+                    required: true,
+                    maxlength: 10
+                },
+                lastName: {
+                    required: true,
+                    maxlength: 20
+                },
+                title: {
+                    required: true,
+                    maxlength: 30
+                },
+                birthDate: "required",
+                hireDate: "required",
+                country:"required",
+                notes: {
+                    maxlength: 500
+                }
+            },
+            messages: {
+                firstName: "Invalid First Name",
+                lastName: "Invalid Last Name",
+                title: "Invalid Title",
+                birthDate: "Invalid Birth Date",
+                hireDate: "Invalid Hire Date",
+                country:"Invalid Country",
+                notes: "Invalid Notes"
+            },
+            errorClass: "message"
+        });
+
+        //fill countries dropdown
+
+        var options = {};
+        options.url = "/api/countries";
+        options.type = "GET";
+        options.beforeSend = function (request) {
+            request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+            $("h3.message").html("Wait...");
+        };
+
+        options.contentType = "application/json";
+        options.dataType = "json";
+
+        options.success = function (countries) {
+            for (var i = 0; i < countries.length; i++) {
+                $("#country").append("<option>" + countries[i].name + "</option>");
+            }
+            $("h3.message").html("");
+        };
+        options.error = function (xhr) {
+            if (xhr.status == 401) {
+                window.location.href = "/EmployeeManager/SignIn";
+            }
+            $("h3.message").html("Error while calling the API!");
+        };
+        $.ajax(options);
+
+
+
+        $("#save").click(function () {
+
+            if ($("#insertForm").valid()) {
+                var options = {};
+                options.url = "/api/employees";
+                options.type = "POST";
+
+                var obj = {};
+                obj.firstName = $("#firstName").val();
+                obj.lastName = $("#lastName").val();
+                obj.title = $("#title").val();
+                obj.birthDate = $("#birthDate").val();
+                obj.hireDate = $("#hireDate").val();
+                obj.country = $("#country").val();
+                obj.notes = $("#notes").val();
+
+                options.data = JSON.stringify(obj);
+                options.contentType = "application/json";
+
+                options.beforeSend = function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                    $("h3.message").html("Wait...");
+                };
+
+                options.success = function () {
+                    $("h3.message").html("Employee inserted successfully!");
+                };
+                options.error = function (xhr) {
+                    if (xhr.status == 401) {
+                        window.location.href = "/EmployeeManager/SignIn";
+                    }
+                    $("h3.message").html("Error while calling the  API!");
+                };
+                $.ajax(options);
+            }
+        });
+
+
+
+    });
+
+</script>
+
+
+<h2>Insert New Employee</h2>
+
+<h3 class="message"></h3>
+
+<form id="insertForm">
+    <table border="0">
+        <tr>
+            <td class="right">
+                <label for="firstName">First Name :</label>
+            </td>
+            <td>
+                <input type="text" id="firstName" name="firstName" maxlength="10" required/>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="lastName">Last Name :</label>
+            </td>
+            <td>
+                <input type="text" id="lastName" name="lastName" maxlength="20" required />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="title">Title :</label>
+            </td>
+            <td>
+                <input type="text" id="title" name="title" maxlength="30" required />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="birthDate">Birth Date :</label>
+            </td>
+            <td>
+                <input type="date" id="birthDate" name="birthDate" required/>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="hireDate">Hire Date :</label>
+            </td>
+            <td>
+                <input type="date" id="hireDate" name="hireDate" required/>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="country">Country :</label>
+            </td>
+            <td>
+                <select id="country" name="country" required>
+                    <option value="">Please select</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="notes">Notes :</label>
+            </td>
+            <td>
+                <textarea id="notes" name="name" rows="5" cols="40" maxlength="500"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="save" type="button">Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br /><br />
+
+<a asp-controller="EmployeeManager" asp-action="List">Back to Employee Listing</a>
+
+

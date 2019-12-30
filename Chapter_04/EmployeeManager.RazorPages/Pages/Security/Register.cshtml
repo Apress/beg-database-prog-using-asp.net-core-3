@@ -1,0 +1,46 @@
+﻿@page
+@model RegisterModel
+@{
+}
+
+
+
+<h2>Create New User Account</h2>
+<form method="post">
+    <table>
+        <tr>
+            <td><label asp-for="RegisterData.UserName"></label></td>
+            <td><input type="text" asp-for="RegisterData.UserName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="RegisterData.Password"></label></td>
+            <td><input type="password" asp-for="RegisterData.Password" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="RegisterData.ConfirmPassword"></label></td>
+            <td><input type="password" asp-for="RegisterData.ConfirmPassword" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="RegisterData.Email"></label></td>
+            <td><input type="text" asp-for="RegisterData.Email" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="RegisterData.FullName"></label></td>
+            <td><input type="text" asp-for="RegisterData.FullName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="RegisterData.BirthDate"></label></td>
+            <td><input type="date" asp-for="RegisterData.BirthDate" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create</button>
+            </td>
+        </tr>
+    </table>
+    <div asp-validation-summary="All" class="message"></div>
+
+    <h3><a asp-page="/Security/SignIn">Go To Sign-In Page</a></h3>
+
+
+</form>

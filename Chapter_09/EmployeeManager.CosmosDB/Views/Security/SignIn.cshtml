@@ -1,0 +1,29 @@
+﻿@model SignIn
+
+
+<h1>Sign In</h1>
+<form asp-controller="Security" asp-action="SignIn" method="post">
+    <table>
+        <tr>
+            <td><label asp-for="UserName"></label> :</td>
+            <td><input type="text" asp-for="UserName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Password"></label> :</td>
+            <td><input type="password" asp-for="Password" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="RememberMe"></label> :</td>
+            <td><input type="checkbox" asp-for="RememberMe" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Sign In</button>
+            </td>
+        </tr>
+    </table>
+    <div asp-validation-summary="All" class="message"></div>
+
+    <h3><a asp-controller="security" asp-action="register">Create New User Account</a></h3>
+
+</form>

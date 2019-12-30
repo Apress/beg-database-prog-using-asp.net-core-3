@@ -1,0 +1,58 @@
+<h2>Insert New Employee</h2>
+
+
+<h3 class="message">{{message}}</h3>
+
+
+<form [formGroup]="insertForm" (ngSubmit)="save_click()" novalidate>
+
+  <table border="0" cellpadding="10">
+    <tr>
+      <td class="right">First Name :</td>
+      <td><input type="text" formControlName="firstName"></td>
+    </tr>
+    <tr>
+      <td class="right">Last Name :</td>
+      <td><input type="text" formControlName="lastName"></td>
+    </tr>
+    <tr>
+      <td class="right">Title :</td>
+      <td><input type="text" formControlName="title"></td>
+    </tr>
+    <tr>
+      <td class="right">Birth Date :</td>
+      <td><input type="date" formControlName="birthDate"></td>
+    </tr>
+    <tr>
+      <td class="right">Hire Date :</td>
+      <td><input type="date" formControlName="hireDate"></td>
+    </tr>
+    <tr>
+      <td class="right">Country :</td>
+      <td>
+        <select formControlName="country">
+          <option value="">Please select</option>
+          <option *ngFor="let c of countries" [value]="c.name">
+            {{c.name}}
+          </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">Notes :</td>
+      <td><textarea rows="3" cols="50" formControlName="notes"></textarea></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="submit">Save</button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+
+<br /><br />
+<a href="#" (click)="cancel_click()">Back to Employee Listing</a>
+
+<hr />
+<app-signout></app-signout>

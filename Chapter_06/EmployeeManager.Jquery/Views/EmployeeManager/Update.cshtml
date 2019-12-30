@@ -1,0 +1,227 @@
+﻿
+
+<script>
+
+    $(document).ready(function () {
+
+        if (!sessionStorage.hasOwnProperty("token")) {
+            window.location.href = "/EmployeeManager/SignIn";
+        }
+
+        $("#updateForm").validate({
+            rules: {
+                firstName: {
+                    required: true,
+                    maxlength: 10
+                },
+                lastName: {
+                    required: true,
+                    maxlength: 10
+                },
+                title: {
+                    required: true,
+                    maxlength: 30
+                },
+                birthDate: "required",
+                hireDate: "required",
+                country:"required",
+                notes: {
+                    maxlength: 500
+                }
+            },
+            messages: {
+                firstName: "Invalid First Name",
+                lastName: "Invalid Last Name",
+                title: "Invalid Title",
+                birthDate: "Invalid Birth Date",
+                hireDate: "Invalid Hire Date",
+                country:"Invalid Country",
+                notes: "Invalid Notes"
+            },
+            errorClass: "message"
+        });
+
+
+        var options = {};
+        options.url = "/api/countries";
+        options.type = "GET";
+        options.beforeSend = function (request) {
+            request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+            $("h3.message").html("Wait...");
+        };
+
+        options.contentType = "application/json";
+        options.dataType = "json";
+
+        options.success = function (countries) {
+            for (var i = 0; i < countries.length; i++) {
+                $("#country").append("<option>" + countries[i].name + "</option>");
+            }
+
+            //get one employee 
+
+            var options = {};
+            options.url = "/api/employees/" + $("#employeeID").val();
+            options.type = "GET";
+            options.beforeSend = function (request) {
+                request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                $("h3.message").html("Wait...");
+            };
+            options.dataType = "json";
+            options.success = function (data) {
+                $("#firstName").val(data.firstName);
+                $("#lastName").val(data.lastName);
+                $("#title").val(data.title);
+                $("#birthDate").val(data.birthDate.substring(0, 10));
+                $("#hireDate").val(data.hireDate.substring(0, 10));
+                $("#country").val(data.country);
+                $("#notes").val(data.notes);
+                $("h3.message").html("");
+            };
+            options.error = function () {
+                if (xhr.status == 401) {
+                    window.location.href = "/EmployeeManager/SignIn";
+                }
+                $("h3.message").html("Error while calling the API!");
+            };
+            $.ajax(options);
+        };
+        options.error = function (xhr) {
+            if (xhr.status == 401) {
+                window.location.href = "/EmployeeManager/SignIn";
+            }
+            $("h3.message").html("Error while calling the API!");
+        };
+        $.ajax(options);
+
+
+
+        $("#save").click(function () {
+
+            if ($("#updateForm").valid()) {
+                var options = {};
+                options.url = "/api/employees/" + $("#employeeID").val();
+
+                options.type = "PUT";
+                options.beforeSend = function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                    $("h3.message").html("Wait...");
+                };
+                var obj = {};
+                obj.employeeID = parseInt($("#employeeID").val());
+                obj.firstName = $("#firstName").val();
+                obj.lastName = $("#lastName").val();
+                obj.title = $("#title").val();
+                obj.birthDate = $("#birthDate").val();
+                obj.hireDate = $("#hireDate").val();
+                obj.country = $("#country").val();
+                obj.notes = $("#notes").val();
+
+                options.data = JSON.stringify(obj);
+                options.contentType = "application/json";
+
+                options.success = function () {
+                    $("h3.message").html("Employee updated successfully!");
+                };
+                options.error = function (xhr) {
+                    if (xhr.status == 401) {
+                        window.location.href = "/EmployeeManager/SignIn";
+                    }
+                    $("h3.message").html("Error while calling the Web API!");
+                };
+                $.ajax(options);
+            }
+        });
+
+
+
+    });
+
+</script>
+
+
+<h2>Update Existing Employee</h2>
+
+<h3 class="message"></h3>
+
+<form id="updateForm">
+    <table border="0">
+        <tr>
+            <td class="right">
+                <label for="firstName">Employee ID :</label>
+            </td>
+            <td>
+                <span>@ViewBag.EmployeeID</span>
+                <input type="hidden" id="employeeID" name="employeeID" value="@ViewBag.EmployeeID" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="firstName">First Name :</label>
+            </td>
+            <td>
+                <input type="text" id="firstName" name="firstName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="lastName">Last Name :</label>
+            </td>
+            <td>
+                <input type="text" id="lastName" name="firstName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="title">Title :</label>
+            </td>
+            <td>
+                <input type="text" id="title" name="title" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="birthDate">Birth Date :</label>
+            </td>
+            <td>
+                <input type="date" id="birthDate" name="birthDate" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="hireDate">Hire Date :</label>
+            </td>
+            <td>
+                <input type="date" id="hireDate" name="hireDate" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="country">Country :</label>
+            </td>
+            <td>
+                <select id="country" name="country">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="notes">Notes :</label>
+            </td>
+            <td>
+                <textarea id="notes" name="name" rows="5" cols="40"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="save" type="button">Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br /><br />
+
+<a asp-controller="EmployeeManager" asp-action="List">Back to Employee Listing</a>
+
+

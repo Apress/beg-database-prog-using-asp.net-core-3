@@ -1,0 +1,87 @@
+﻿@model Employee
+
+
+<h2>Insert New Employee</h2>
+
+<h3 class="message">@ViewBag.Message</h3>
+
+<form asp-controller="EmployeeManager" asp-action="Insert" method="post">
+    <table border="0">
+        <tr>
+            <td class="right">
+                <label asp-for="FirstName"></label> :
+            </td>
+            <td>
+                <input type="text" asp-for="FirstName" />
+                <span asp-validation-for="FirstName" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="LastName"></label> :
+            </td>
+            <td>
+                <input type="text" asp-for="LastName" />
+                <span asp-validation-for="LastName" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Title"></label> :
+            </td>
+            <td>
+                <input type="text" asp-for="Title" />
+                <span asp-validation-for="Title" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="BirthDate"></label> :
+            </td>
+            <td>
+                <input type="date" asp-for="BirthDate" />
+                <span asp-validation-for="BirthDate" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="HireDate"></label> :
+            </td>
+            <td>
+                <input type="date" asp-for="HireDate" />
+                <span asp-validation-for="HireDate" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Country"></label> :
+            </td>
+            <td>
+                <select asp-for="Country" asp-items="@ViewBag.Countries">
+                    <option value="">Please select</option>
+                </select>
+                <span asp-validation-for="Country" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Notes"></label> :
+            </td>
+            <td>
+                <textarea asp-for="Notes" rows="5" cols="40"></textarea>
+                <span asp-validation-for="Notes" class="message"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br /><br />
+
+<a asp-controller="EmployeeManager" asp-action="List">Back to Employee Listing</a>
+
+

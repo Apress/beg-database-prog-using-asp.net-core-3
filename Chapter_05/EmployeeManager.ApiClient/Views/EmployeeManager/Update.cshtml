@@ -1,0 +1,94 @@
+﻿@model Employee
+
+<h2>Update Existing Employee</h2>
+
+<h3 class="message">@ViewBag.Message</h3>
+
+@using (Html.BeginForm("Update", "EmployeeManager", FormMethod.Post))
+{
+<table border="0">
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.EmployeeID) :
+        </td>
+        <td>
+            @Html.HiddenFor(m=>m.EmployeeID)
+            <span>@Model.EmployeeID</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.FirstName) :
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.FirstName)
+            @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.LastName) :
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.LastName)
+            @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.Title) :
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.BirthDate) :
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { type = "date" })
+            @Html.ValidationMessageFor(m => m.BirthDate, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.HireDate) :
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.HireDate, "{0:yyyy-MM-dd}", new { type = "date" })
+            @Html.ValidationMessageFor(m => m.HireDate, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.Country) :
+        </td>
+        <td>
+            @Html.DropDownListFor(m => m.Country, ViewBag.Countries as List<SelectListItem>)
+            @Html.ValidationMessageFor(m => m.Country, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @Html.LabelFor(m => m.Notes) :
+        </td>
+        <td>
+            @Html.TextAreaFor(m => m.Notes, 5, 40, null)
+            @Html.ValidationMessageFor(m => m.Notes, null, new { @class = "message" })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button type="submit">Save</button>
+        </td>
+    </tr>
+</table>
+}
+
+<br /><br />
+
+@Html.ActionLink("Back to Employee Listing", "List", "EmployeeManager")
+
+

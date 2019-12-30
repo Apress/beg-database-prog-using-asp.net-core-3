@@ -1,0 +1,19 @@
+﻿@page "/"
+@namespace EmployeeManager.Blazor.ServerSide.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Manager</title>
+    <base href="~/" />
+    <link href="~/Styles/site.css" rel="stylesheet" />
+</head>
+<body>
+    <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

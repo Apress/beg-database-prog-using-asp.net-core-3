@@ -1,0 +1,88 @@
+﻿
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#signinForm").validate({
+            rules: {
+                userName: {
+                    required: true,
+                    maxlength: 20
+                },
+                password: {
+                    required: true,
+                    maxlength: 20
+                }
+            },
+            messages: {
+                userName: "Invalid User Name",
+                password: "Invalid Password"
+            },
+            errorClass: "message"
+        });
+
+
+        $("#signin").click(function () {
+
+            if ($("#signinForm").valid()) {
+
+                var options = {};
+                options.url = "/api/security/signin";
+                options.type = "POST";
+
+                var obj = {};
+                obj.userName = $("#userName").val();
+                obj.password = $("#password").val();
+
+                options.data = JSON.stringify(obj);
+                options.contentType = "application/json";
+                options.dataType = "json";
+
+                options.success = function (obj) {
+                    sessionStorage.setItem("token", obj.token);
+                    sessionStorage.setItem("userName", $("#userName").val());
+                    window.location.href = "/EmployeeManager/List";
+                };
+                options.error = function () {
+                    $("h3.message").html("Unable to Sign-in");
+                };
+                $.ajax(options);
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<h2>Sign In</h2>
+
+<h3 class="message"></h3>
+
+<form id="signinForm">
+    <table>
+        <tr>
+            <td class="right"><label for="userName">User Name :</label></td>
+            <td class="left"><input type="text" id="userName" name="userName"/></td>
+        </tr>
+        <tr>
+            <td class="right"><label for="password">Password :</label></td>
+            <td class="left"><input type="password" id="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="signin" type="button">Sign In</button>
+            </td>
+        </tr>
+    </table>
+
+    <h3>
+    <a asp-controller="EmployeeManager" asp-action="Register">Create New User Account</a></h3>
+
+</form>

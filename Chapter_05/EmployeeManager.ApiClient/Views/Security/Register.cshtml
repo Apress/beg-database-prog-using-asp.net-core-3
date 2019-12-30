@@ -1,0 +1,43 @@
+﻿@model Register
+
+
+<h2>Create New User Account</h2>
+
+@using (Html.BeginForm("Register", "Security", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m=>m.UserName) :</td>
+            <td>@Html.TextBoxFor(m=>m.UserName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Password) :</td>
+            <td>@Html.PasswordFor(m=>m.Password)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ConfirmPassword) :</td>
+            <td>@Html.PasswordFor(m => m.ConfirmPassword)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Email) :</td>
+            <td>@Html.TextBoxFor(m => m.Email)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.FullName) :</td>
+            <td>@Html.TextBoxFor(m => m.FullName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.BirthDate) :</td>
+            <td>@Html.TextBoxFor(m => m.BirthDate, null, new { type = "date" })</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Register</button>
+            </td>
+        </tr>
+    </table>
+    @Html.ValidationSummary(null,new { @class="message" })
+
+    <h3>@Html.ActionLink("Go To Login Page", "SignIn", "Security")</h3>
+
+}

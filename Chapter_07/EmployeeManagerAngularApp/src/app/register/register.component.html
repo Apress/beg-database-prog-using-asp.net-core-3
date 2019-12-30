@@ -1,0 +1,42 @@
+<h2>Create New User Account</h2>
+
+
+<h3 class="message">{{message}}</h3>
+
+
+<form [formGroup]="registerForm" (ngSubmit)="create_click()" novalidate>
+
+  <table border="0" cellpadding="10">
+    <tr>
+      <td>User Name :</td>
+      <td><input type="text" formControlName="userName"></td>
+    </tr>
+    <tr>
+      <td>Password :</td>
+      <td><input type="password" formControlName="password"></td>
+    </tr>
+    <tr>
+      <td>Confirm Password :</td>
+      <td><input type="password" formControlName="confirmPassword"></td>
+    </tr>
+    <tr>
+      <td>Email :</td>
+      <td><input type="email" formControlName="email"></td>
+    </tr>
+    <tr>
+      <td>Full Name :</td>
+      <td><input type="text" formControlName="fullName"></td>
+    </tr>
+    <tr>
+      <td>Birth Date :</td>
+      <td><input type="date" formControlName="birthDate"></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="submit">Create</button>
+      </td>
+    </tr>
+  </table>
+</form>
+<br /><br />
+<a href="signin">Go to Sign-In Page</a>

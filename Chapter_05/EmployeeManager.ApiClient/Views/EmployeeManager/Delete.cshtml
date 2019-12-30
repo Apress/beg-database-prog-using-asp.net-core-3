@@ -1,0 +1,82 @@
+﻿@model Employee
+
+<h2>Delete Existing Employee</h2>
+
+<h3 class="message">
+    Warning : You are about to delete an employee record.
+</h3>
+
+@using (Html.BeginForm("Delete", "EmployeeManager", FormMethod.Post))
+{
+    @Html.HiddenFor(m=>m.EmployeeID)
+
+    <table border="0">
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.EmployeeID) :
+            </td>
+            <td>
+                @Model.EmployeeID
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.FirstName) :
+            </td>
+            <td>
+                @Model.FirstName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.LastName) :
+            </td>
+            <td>
+                @Model.LastName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.Title) :
+            </td>
+            <td>
+                @Model.Title
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.BirthDate) :
+            </td>
+            <td>
+                @Model.BirthDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.HireDate) :
+            </td>
+            <td>
+                @Model.HireDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                @Html.LabelFor(m => m.Notes) :
+            </td>
+            <td>
+                @Model.Notes
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Delete</button>
+            </td>
+        </tr>
+    </table>
+}
+
+    <br /><br />
+
+    @Html.ActionLink("Back to Employee Listing", "List", "EmployeeManager")
+
+

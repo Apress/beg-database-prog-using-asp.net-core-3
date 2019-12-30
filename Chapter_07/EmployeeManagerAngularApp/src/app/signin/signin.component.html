@@ -1,0 +1,49 @@
+<h2>Sign In</h2>
+
+
+<h3 class="message">{{message}}</h3>
+
+
+<form [formGroup]="signinForm" (ngSubmit)="signin_click()" novalidate>
+
+  <table border="0" cellpadding="10">
+    <tr>
+      <td class="right">User Name :</td>
+      <td><input type="text" formControlName="userName"></td>
+    </tr>
+    <tr>
+      <td class="right">Password :</td>
+      <td><input type="password" formControlName="password"></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="submit">Sign In</button>
+      </td>
+    </tr>
+  </table>
+</form>
+<br /><br />
+<a href="register">Create New User Account</a>
+
+<br /><br />
+
+
+<br />
+<div *ngIf="signinForm.controls.userName.dirty && signinForm.controls.userName.invalid">
+  <div *ngIf="signinForm.controls.userName.errors.required" [ngClass]="'message'">
+    User Name is required
+  </div>
+  <div *ngIf="signinForm.controls.userName.errors.maxlength" [ngClass]="'message'">
+    User Name must be smaller than 20 characters
+  </div>
+</div>
+
+
+<div *ngIf="signinForm.controls.password.dirty && signinForm.controls.password.invalid">
+  <div *ngIf="signinForm.controls.password.errors.required" [ngClass]="'message'">
+    Password is required
+  </div>
+  <div *ngIf="signinForm.controls.password.errors.maxlength" [ngClass]="'message'">
+    Password must be smaller than 20 characters
+  </div>
+</div>

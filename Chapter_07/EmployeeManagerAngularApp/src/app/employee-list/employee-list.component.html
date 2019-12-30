@@ -1,0 +1,37 @@
+<h2>List of Employees</h2>
+
+<button (click)="insert_click()" title="Insert">Insert</button>
+
+<h3 class="message">{{message}}</h3>
+
+<br />
+
+<table border="1" cellpadding="10">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Title</th>
+      <th colspan="2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of employees">
+      <td>{{emp.employeeID}}</td>
+      <td>{{emp.firstName}}</td>
+      <td>{{emp.lastName}}</td>
+      <td>{{emp.title}}</td>
+      <td>
+        <button (click)="update_click(emp.employeeID)">Update</button>
+      </td>
+      <td>
+        <button (click)="delete_click(emp.employeeID)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<app-signout></app-signout>
+

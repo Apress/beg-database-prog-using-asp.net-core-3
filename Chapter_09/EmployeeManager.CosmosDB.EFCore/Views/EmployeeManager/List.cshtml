@@ -1,0 +1,47 @@
+﻿@model List<Employee>
+
+
+<h2>List of Employees</h2>
+
+<h3 class="message">@TempData["Message"]</h3>
+
+<a asp-controller="EmployeeManager" asp-action="Insert" class="linkbutton">Insert</a>
+
+<br />
+<br />
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="message">No data found.</div>
+}
+else
+{
+    <table border="1">
+        <tr>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Title</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EmployeeID</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Title</td>
+                <td>
+                    <a asp-controller="EmployeeManager"
+                       asp-action="Update"
+                       asp-route-id="@item.DocumentID" class="linkbutton">Update</a>
+                </td>
+                <td>
+                    <a asp-controller="EmployeeManager"
+                       asp-action="Delete"
+                       asp-route-id="@item.DocumentID" class="linkbutton">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}

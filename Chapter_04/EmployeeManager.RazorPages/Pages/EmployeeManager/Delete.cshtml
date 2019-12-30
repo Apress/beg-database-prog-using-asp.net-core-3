@@ -1,0 +1,92 @@
+﻿@page "{id}"
+@model DeleteModel
+
+<h2>Delete Existing Employee</h2>
+
+<h3 class="message">
+    Warning : You are about to delete an employee record!
+</h3>
+
+@if (Model.dataFound)
+{
+<form method="post">
+
+    <input type="hidden" asp-for="Employee.EmployeeID" />
+
+    <table border="0">
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.EmployeeID"></label> :
+            </td>
+            <td>
+                @Model.Employee.EmployeeID
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.FirstName"></label> :
+            </td>
+            <td>
+                @Model.Employee.FirstName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.LastName"></label> :
+            </td>
+            <td>
+                @Model.Employee.LastName
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.Title"></label> :
+            </td>
+            <td>
+                @Model.Employee.Title
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.BirthDate"></label> :
+            </td>
+            <td>
+                @Model.Employee.BirthDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.HireDate"></label> :
+            </td>
+            <td>
+                @Model.Employee.HireDate.ToString("dd MMMM yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.Country"></label> :
+            </td>
+            <td>
+                @Model.Employee.Country
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label asp-for="Employee.Notes"></label> :
+            </td>
+            <td>
+                @Model.Employee.Notes
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Delete</button>
+            </td>
+        </tr>
+    </table>
+</form>
+}
+<br /><br />
+
+<a asp-page="List">Back to Employee Listing</a>
+

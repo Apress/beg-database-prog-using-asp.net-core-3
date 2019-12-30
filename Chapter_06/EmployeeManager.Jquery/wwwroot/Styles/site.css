@@ -1,0 +1,119 @@
+﻿
+* {
+    padding: 0px;
+}
+
+
+body {
+    font-family: 'Trebuchet MS';
+    font-size: 120%;
+    margin: 50px;
+}
+
+hr {
+    padding: 0px;
+    border: none;
+    height: 3px;
+    background-color: #333;
+}
+
+
+a, a.visited, a.hover {
+    font-weight: bold;
+    text-decoration: underline;
+    color: blue;
+}
+
+
+    a.linkbutton {
+        display: block;
+        font-weight: bold;
+        text-decoration: none;
+        background-color: lightgray;
+        color: black;
+        padding: 6px;
+        width: 120px;
+        text-align: center;
+        vertical-align: middle;
+        letter-spacing: 1px;
+    }
+
+
+.message {
+    padding-left:5px;
+    color: red;
+    font-weight: bold;
+}
+
+input {
+    padding: 3px;
+    font-size: 90%;
+    letter-spacing: 1px;
+}
+
+
+select {
+    padding: 3px;
+    font-size: 90%;
+    letter-spacing: 1px;
+}
+
+table {
+    font-family: inherit;
+    font-size: inherit;
+    border-collapse: collapse
+}
+
+td {
+    padding: 10px;
+}
+
+    td.right {
+        padding: 10px;
+        text-align: right;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+
+th {
+    padding: 10px;
+    font-weight: bold;
+}
+
+textarea {
+    padding: 3px;
+    font-family: inherit;
+    font-size: 90%;
+    letter-spacing: 1px;
+}
+
+button {
+    display: block;
+    border: 0px solid lightgray;
+    font-size: 90%;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: lightgray;
+    color: black;
+    padding: 6px;
+    width: 120px;
+    text-align: center;
+    vertical-align: middle;
+    letter-spacing: 1px;
+}
+
+.div-table {
+    display: table;
+    width: auto;
+    border-spacing: 5px;
+}
+
+.div-row {
+    display: table-row;
+    width: auto;
+    clear: both;
+}
+
+.div-col {
+    display: table-cell;
+}

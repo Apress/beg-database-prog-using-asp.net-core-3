@@ -1,0 +1,21 @@
+﻿@page
+
+@model HelloWorldRazorPages.Pages.IndexModel
+
+<html>
+    <head>
+        <title>Hello World App</title>
+    </head>
+    <body>
+        <h1>@Model.Heading.Message</h1>
+        <hr />
+        <h2>@Model.SubHeading</h2>
+        <form method="post">
+            <label asp-for="Heading.Message">Enter Message :</label>
+            <br /><br />
+            <input type="text" asp-for="Heading.Message" />
+            <br /><br />
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+﻿@page
+
+@model ListModel
+
+<h2>List of Employees</h2>
+
+<h3 class="message">@TempData["Message"]</h3>
+
+<a asp-page="Insert" class="linkbutton">Insert</a>
+
+<br /><br />
+
+<table border="1">
+    <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Title</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    @foreach (var item in Model.Employees)
+    {
+        <tr>
+            <td>@item.EmployeeID</td>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.Title</td>
+            <td>
+                <a asp-page="Update"
+                   asp-route-id="@item.EmployeeID"
+                   class="linkbutton">Update</a>
+            </td>
+            <td>
+                <a asp-page="Delete"
+                   asp-route-id="@item.EmployeeID" class="linkbutton">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

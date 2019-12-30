@@ -1,0 +1,61 @@
+CREATE PROCEDURE [dbo].[Employees_SelectAll]
+AS
+	SELECT EmployeeID, FirstName, LastName, Title, BirthDate, HireDate, Country, Notes FROM Employees ORDER BY EmployeeID ASC
+RETURN 0
+
+
+
+CREATE PROCEDURE [dbo].[Employees_SelectByID]
+	@EmployeeID int
+AS
+	SELECT EmployeeID, FirstName, LastName, Title, BirthDate, HireDate, Country, Notes FROM Employees WHERE EmployeeID = @EmployeeID
+RETURN 0
+
+
+
+CREATE PROCEDURE [dbo].[Employees_Insert]
+	@FirstName NVARCHAR(10),
+	@LastName NVARCHAR(20),
+	@Title NVARCHAR(30),
+	@BirthDate DATETIME,
+	@HireDate DATETIME,
+	@Country NVARCHAR(15),
+	@Notes NTEXT,
+	@EmployeeID INT OUT
+AS
+	INSERT INTO Employees(FirstName,LastName,Title,BirthDate,HireDate,Country,Notes) VALUES(@FirstName,@LastName,@Title,@BirthDate,@HireDate,@Country,@Notes);
+	SET @EmployeeID = SCOPE_IDENTITY();
+RETURN 0
+
+
+
+CREATE PROCEDURE [dbo].[Employees_Update]
+	@EmployeeID INT,
+	@FirstName NVARCHAR(10),
+	@LastName NVARCHAR(20),
+	@Title NVARCHAR(30),
+	@BirthDate DATETIME,
+	@HireDate DATETIME,
+	@Country NVARCHAR(15),
+	@Notes NTEXT
+AS
+	UPDATE Employees SET 
+	FirstName=@FirstName,
+	LastName=@LastName,
+	Title=@Title,
+	BirthDate=@BirthDate,
+	HireDate=@HireDate,
+	Country=@Country,
+	Notes=@Notes
+	WHERE EmployeeID = @EmployeeID;
+RETURN 0
+
+
+
+CREATE PROCEDURE [dbo].[Employees_Delete]
+	@EmployeeID INT
+AS
+	DELETE FROM Employees WHERE EmployeeID = @EmployeeID;
+RETURN 0
+
+

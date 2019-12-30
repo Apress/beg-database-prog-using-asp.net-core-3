@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<h1>Employee Manager</h1>
+
+<hr />
+
+<div>
+    @Body
+</div>
+
+<br />
+
+<hr />
+
+
+
+<AuthorizeView>
+    <Authorized>
+        <h2>You are signed in as @context.User.Identity.Name</h2>
+        <a href='/security/signout' class="linkbutton">Sign Out</a>
+    </Authorized>
+    <NotAuthorized>
+        <!-- nothing here -->
+    </NotAuthorized>
+</AuthorizeView>
